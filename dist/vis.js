@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 4.21.0
- * @date    2018-07-06
+ * @date    2019-08-01
  *
  * @license
  * Copyright (C) 2011-2017 Almende B.V, http://almende.com
@@ -1856,7 +1856,7 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 /* 7 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.7' };
+var core = module.exports = { version: '2.6.9' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1929,7 +1929,7 @@ if (typeof window !== 'undefined') {
 "use strict";
 
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -3278,7 +3278,7 @@ module.exports = DataView;
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(57)('wks');
-var uid = __webpack_require__(41);
+var uid = __webpack_require__(42);
 var Symbol = __webpack_require__(18).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -3521,7 +3521,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.printStyle = undefined;
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -4063,10 +4063,20 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(160), __esModule: true };
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(29)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
 
 /***/ }),
 /* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(160), __esModule: true };
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(27);
@@ -4074,7 +4084,7 @@ var IE8_DOM_DEFINE = __webpack_require__(81);
 var toPrimitive = __webpack_require__(53);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(21) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(19) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -4085,16 +4095,6 @@ exports.f = __webpack_require__(21) ? Object.defineProperty : function definePro
   if ('value' in Attributes) O[P] = Attributes.value;
   return O;
 };
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(29)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
 
 
 /***/ }),
@@ -4626,9 +4626,9 @@ module.exports = function (it) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(20);
-var createDesc = __webpack_require__(40);
-module.exports = __webpack_require__(21) ? function (object, key, value) {
+var dP = __webpack_require__(21);
+var createDesc = __webpack_require__(41);
+module.exports = __webpack_require__(19) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -4756,6 +4756,17 @@ module.exports = Object.keys || function keys(O) {
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(52);
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -4837,7 +4848,7 @@ Point3d.prototype.length = function () {
 module.exports = Point3d;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5040,7 +5051,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5550,7 +5561,7 @@ exports.isHidden = function (time, hiddenDates) {
 };
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5624,7 +5635,7 @@ exports.disablePreventDefaultVertically = function (pinchRecognizer) {
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6143,14 +6154,14 @@ Item.prototype.getTitle = function () {
 module.exports = Item;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -6164,24 +6175,13 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var id = 0;
 var px = Math.random();
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.13 ToObject(argument)
-var defined = __webpack_require__(52);
-module.exports = function (it) {
-  return Object(defined(it));
 };
 
 
@@ -6583,7 +6583,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var util = __webpack_require__(2);
 var Component = __webpack_require__(16);
 var TimeStep = __webpack_require__(66);
-var DateUtil = __webpack_require__(36);
+var DateUtil = __webpack_require__(37);
 var moment = __webpack_require__(9);
 
 /**
@@ -7538,7 +7538,7 @@ var Node = function () {
       this.updateLabelModule(options);
       this.updateShape(currentShape);
 
-      return options.hidden !== undefined || options.physics !== undefined;
+      return options.physics !== undefined;
     }
 
     /**
@@ -8382,7 +8382,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(57)('keys');
-var uid = __webpack_require__(41);
+var uid = __webpack_require__(42);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -8401,8 +8401,8 @@ var store = global[SHARED] || (global[SHARED] = {});
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
   version: core.version,
-  mode: __webpack_require__(39) ? 'pure' : 'global',
-  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
+  mode: __webpack_require__(40) ? 'pure' : 'global',
+  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
 });
 
 
@@ -8420,7 +8420,7 @@ module.exports = (
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(20).f;
+var def = __webpack_require__(21).f;
 var has = __webpack_require__(22);
 var TAG = __webpack_require__(13)('toStringTag');
 
@@ -8466,9 +8466,9 @@ exports.f = __webpack_require__(13);
 
 var global = __webpack_require__(18);
 var core = __webpack_require__(7);
-var LIBRARY = __webpack_require__(39);
+var LIBRARY = __webpack_require__(40);
 var wksExt = __webpack_require__(61);
-var defineProperty = __webpack_require__(20).f;
+var defineProperty = __webpack_require__(21).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -8493,7 +8493,7 @@ var _keys = __webpack_require__(8);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -8506,7 +8506,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var util = __webpack_require__(2);
 var moment = __webpack_require__(9);
 var Component = __webpack_require__(16);
-var DateUtil = __webpack_require__(36);
+var DateUtil = __webpack_require__(37);
 
 /**
  * A Range controls a numeric range with a start and end value.
@@ -9399,7 +9399,7 @@ module.exports = Range;
 "use strict";
 
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -9411,11 +9411,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var Emitter = __webpack_require__(45);
 var Hammer = __webpack_require__(10);
-var hammerUtil = __webpack_require__(37);
+var hammerUtil = __webpack_require__(38);
 var util = __webpack_require__(2);
 var TimeAxis = __webpack_require__(46);
 var Activator = __webpack_require__(97);
-var DateUtil = __webpack_require__(36);
+var DateUtil = __webpack_require__(37);
 var CustomTime = __webpack_require__(47);
 
 /**
@@ -10747,7 +10747,7 @@ module.exports = Core;
 
 
 var moment = __webpack_require__(9);
-var DateUtil = __webpack_require__(36);
+var DateUtil = __webpack_require__(37);
 var util = __webpack_require__(2);
 
 /**
@@ -12745,7 +12745,7 @@ module.exports = BackgroundGroup;
 "use strict";
 
 
-var Item = __webpack_require__(38);
+var Item = __webpack_require__(39);
 
 /**
  * @constructor RangeItem
@@ -13135,7 +13135,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -14343,7 +14343,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -15573,7 +15573,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(39);
+var LIBRARY = __webpack_require__(40);
 var $export = __webpack_require__(17);
 var redefine = __webpack_require__(83);
 var hide = __webpack_require__(26);
@@ -15673,7 +15673,7 @@ module.exports = function (fn, that, length) {
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(21) && !__webpack_require__(29)(function () {
+module.exports = !__webpack_require__(19) && !__webpack_require__(29)(function () {
   return Object.defineProperty(__webpack_require__(82)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -15727,7 +15727,7 @@ module.exports = function (object, names) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(22);
-var toObject = __webpack_require__(42);
+var toObject = __webpack_require__(34);
 var IE_PROTO = __webpack_require__(56)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -15803,14 +15803,14 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(43);
-var createDesc = __webpack_require__(40);
+var createDesc = __webpack_require__(41);
 var toIObject = __webpack_require__(25);
 var toPrimitive = __webpack_require__(53);
 var has = __webpack_require__(22);
 var IE8_DOM_DEFINE = __webpack_require__(81);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(21) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(19) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -16401,7 +16401,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 ////////////////////////////////////////////////////////////////////////////////
 var util = __webpack_require__(2);
 var Camera = __webpack_require__(95);
-var Point3d = __webpack_require__(34);
+var Point3d = __webpack_require__(35);
 
 // enumerate the available styles
 var STYLE = {
@@ -16831,7 +16831,7 @@ var _sign2 = _interopRequireDefault(_sign);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var Point3d = __webpack_require__(34);
+var Point3d = __webpack_require__(35);
 
 /**
  * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
@@ -17225,7 +17225,7 @@ module.exports = Filter;
 "use strict";
 
 
-var keycharm = __webpack_require__(35);
+var keycharm = __webpack_require__(36);
 var Emitter = __webpack_require__(45);
 var Hammer = __webpack_require__(10);
 var util = __webpack_require__(2);
@@ -20083,7 +20083,7 @@ exports.collisionByTimes = function (a, b) {
 "use strict";
 
 
-var Item = __webpack_require__(38);
+var Item = __webpack_require__(39);
 
 /**
  * @constructor BoxItem
@@ -20440,7 +20440,7 @@ module.exports = BoxItem;
 "use strict";
 
 
-var Item = __webpack_require__(38);
+var Item = __webpack_require__(39);
 
 /**
  * @constructor PointItem
@@ -20720,7 +20720,7 @@ module.exports = PointItem;
 "use strict";
 
 
-var Item = __webpack_require__(38);
+var Item = __webpack_require__(39);
 var BackgroundGroup = __webpack_require__(69);
 var RangeItem = __webpack_require__(70);
 
@@ -29069,7 +29069,7 @@ module.exports = function (it) {
 "use strict";
 
 var create = __webpack_require__(54);
-var descriptor = __webpack_require__(40);
+var descriptor = __webpack_require__(41);
 var setToStringTag = __webpack_require__(59);
 var IteratorPrototype = {};
 
@@ -29086,11 +29086,11 @@ module.exports = function (Constructor, NAME, next) {
 /* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(20);
+var dP = __webpack_require__(21);
 var anObject = __webpack_require__(27);
 var getKeys = __webpack_require__(33);
 
-module.exports = __webpack_require__(21) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(19) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -29246,7 +29246,7 @@ module.exports = __webpack_require__(7).Object.keys;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(42);
+var toObject = __webpack_require__(34);
 var $keys = __webpack_require__(33);
 
 __webpack_require__(87)('keys', function () {
@@ -29297,14 +29297,14 @@ module.exports = __webpack_require__(7).Symbol;
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(18);
 var has = __webpack_require__(22);
-var DESCRIPTORS = __webpack_require__(21);
+var DESCRIPTORS = __webpack_require__(19);
 var $export = __webpack_require__(17);
 var redefine = __webpack_require__(83);
 var META = __webpack_require__(147).KEY;
 var $fails = __webpack_require__(29);
 var shared = __webpack_require__(57);
 var setToStringTag = __webpack_require__(59);
-var uid = __webpack_require__(41);
+var uid = __webpack_require__(42);
 var wks = __webpack_require__(13);
 var wksExt = __webpack_require__(61);
 var wksDefine = __webpack_require__(62);
@@ -29312,13 +29312,15 @@ var enumKeys = __webpack_require__(148);
 var isArray = __webpack_require__(149);
 var anObject = __webpack_require__(27);
 var isObject = __webpack_require__(28);
+var toObject = __webpack_require__(34);
 var toIObject = __webpack_require__(25);
 var toPrimitive = __webpack_require__(53);
-var createDesc = __webpack_require__(40);
+var createDesc = __webpack_require__(41);
 var _create = __webpack_require__(54);
 var gOPNExt = __webpack_require__(150);
 var $GOPD = __webpack_require__(89);
-var $DP = __webpack_require__(20);
+var $GOPS = __webpack_require__(63);
+var $DP = __webpack_require__(21);
 var $keys = __webpack_require__(33);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
@@ -29334,7 +29336,7 @@ var SymbolRegistry = shared('symbol-registry');
 var AllSymbols = shared('symbols');
 var OPSymbols = shared('op-symbols');
 var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function';
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
 var QObject = global.QObject;
 // Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
 var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
@@ -29444,9 +29446,9 @@ if (!USE_NATIVE) {
   $DP.f = $defineProperty;
   __webpack_require__(88).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(43).f = $propertyIsEnumerable;
-  __webpack_require__(63).f = $getOwnPropertySymbols;
+  $GOPS.f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(39)) {
+  if (DESCRIPTORS && !__webpack_require__(40)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -29495,6 +29497,16 @@ $export($export.S + $export.F * !USE_NATIVE, 'Object', {
   getOwnPropertySymbols: $getOwnPropertySymbols
 });
 
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
 // 24.3.2 JSON.stringify(value [, replacer [, space]])
 $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
   var S = $Symbol();
@@ -29533,10 +29545,10 @@ setToStringTag(global.JSON, 'JSON', true);
 /* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(41)('meta');
+var META = __webpack_require__(42)('meta');
 var isObject = __webpack_require__(28);
 var has = __webpack_require__(22);
-var setDesc = __webpack_require__(20).f;
+var setDesc = __webpack_require__(21).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -30813,22 +30825,36 @@ __webpack_require__(62)('observable');
     function createDate (y, m, d, h, M, s, ms) {
         // can't just apply() to create a date:
         // https://stackoverflow.com/q/181348
-        var date = new Date(y, m, d, h, M, s, ms);
-
+        var date;
         // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
-            date.setFullYear(y);
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            date = new Date(y + 400, m, d, h, M, s, ms);
+            if (isFinite(date.getFullYear())) {
+                date.setFullYear(y);
+            }
+        } else {
+            date = new Date(y, m, d, h, M, s, ms);
         }
+
         return date;
     }
 
     function createUTCDate (y) {
-        var date = new Date(Date.UTC.apply(null, arguments));
-
+        var date;
         // the Date.UTC function remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
-            date.setUTCFullYear(y);
+        if (y < 100 && y >= 0) {
+            var args = Array.prototype.slice.call(arguments);
+            // preserve leap years using a full 400 year cycle, then reset
+            args[0] = y + 400;
+            date = new Date(Date.UTC.apply(null, args));
+            if (isFinite(date.getUTCFullYear())) {
+                date.setUTCFullYear(y);
+            }
+        } else {
+            date = new Date(Date.UTC.apply(null, arguments));
         }
+
         return date;
     }
 
@@ -30930,7 +30956,7 @@ __webpack_require__(62)('observable');
 
     var defaultLocaleWeek = {
         dow : 0, // Sunday is the first day of the week.
-        doy : 6  // The week that contains Jan 1st is the first week of the year.
+        doy : 6  // The week that contains Jan 6th is the first week of the year.
     };
 
     function localeFirstDayOfWeek () {
@@ -31039,25 +31065,28 @@ __webpack_require__(62)('observable');
     }
 
     // LOCALES
+    function shiftWeekdays (ws, n) {
+        return ws.slice(n, 7).concat(ws.slice(0, n));
+    }
 
     var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
     function localeWeekdays (m, format) {
-        if (!m) {
-            return isArray(this._weekdays) ? this._weekdays :
-                this._weekdays['standalone'];
-        }
-        return isArray(this._weekdays) ? this._weekdays[m.day()] :
-            this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
+        var weekdays = isArray(this._weekdays) ? this._weekdays :
+            this._weekdays[(m && m !== true && this._weekdays.isFormat.test(format)) ? 'format' : 'standalone'];
+        return (m === true) ? shiftWeekdays(weekdays, this._week.dow)
+            : (m) ? weekdays[m.day()] : weekdays;
     }
 
     var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
     function localeWeekdaysShort (m) {
-        return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+        return (m === true) ? shiftWeekdays(this._weekdaysShort, this._week.dow)
+            : (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
     }
 
     var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
     function localeWeekdaysMin (m) {
-        return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+        return (m === true) ? shiftWeekdays(this._weekdaysMin, this._week.dow)
+            : (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
     }
 
     function handleStrictParse$1(weekdayName, format, strict) {
@@ -31806,13 +31835,13 @@ __webpack_require__(62)('observable');
                     weekdayOverflow = true;
                 }
             } else if (w.e != null) {
-                // local weekday -- counting starts from begining of week
+                // local weekday -- counting starts from beginning of week
                 weekday = w.e + dow;
                 if (w.e < 0 || w.e > 6) {
                     weekdayOverflow = true;
                 }
             } else {
-                // default to begining of week
+                // default to beginning of week
                 weekday = dow;
             }
         }
@@ -32406,7 +32435,7 @@ __webpack_require__(62)('observable');
             years = normalizedInput.year || 0,
             quarters = normalizedInput.quarter || 0,
             months = normalizedInput.month || 0,
-            weeks = normalizedInput.week || 0,
+            weeks = normalizedInput.week || normalizedInput.isoWeek || 0,
             days = normalizedInput.day || 0,
             hours = normalizedInput.hour || 0,
             minutes = normalizedInput.minute || 0,
@@ -32710,7 +32739,7 @@ __webpack_require__(62)('observable');
                 ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
             };
         } else if (!!(match = isoRegex.exec(input))) {
-            sign = (match[1] === '-') ? -1 : (match[1] === '+') ? 1 : 1;
+            sign = (match[1] === '-') ? -1 : 1;
             duration = {
                 y : parseIso(match[2], sign),
                 M : parseIso(match[3], sign),
@@ -32752,7 +32781,7 @@ __webpack_require__(62)('observable');
     }
 
     function positiveMomentsDifference(base, other) {
-        var res = {milliseconds: 0, months: 0};
+        var res = {};
 
         res.months = other.month() - base.month() +
             (other.year() - base.year()) * 12;
@@ -32861,7 +32890,7 @@ __webpack_require__(62)('observable');
         if (!(this.isValid() && localInput.isValid())) {
             return false;
         }
-        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+        units = normalizeUnits(units) || 'millisecond';
         if (units === 'millisecond') {
             return this.valueOf() > localInput.valueOf();
         } else {
@@ -32874,7 +32903,7 @@ __webpack_require__(62)('observable');
         if (!(this.isValid() && localInput.isValid())) {
             return false;
         }
-        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+        units = normalizeUnits(units) || 'millisecond';
         if (units === 'millisecond') {
             return this.valueOf() < localInput.valueOf();
         } else {
@@ -32883,9 +32912,14 @@ __webpack_require__(62)('observable');
     }
 
     function isBetween (from, to, units, inclusivity) {
+        var localFrom = isMoment(from) ? from : createLocal(from),
+            localTo = isMoment(to) ? to : createLocal(to);
+        if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
+            return false;
+        }
         inclusivity = inclusivity || '()';
-        return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
-            (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
+        return (inclusivity[0] === '(' ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) &&
+            (inclusivity[1] === ')' ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
     }
 
     function isSame (input, units) {
@@ -32894,7 +32928,7 @@ __webpack_require__(62)('observable');
         if (!(this.isValid() && localInput.isValid())) {
             return false;
         }
-        units = normalizeUnits(units || 'millisecond');
+        units = normalizeUnits(units) || 'millisecond';
         if (units === 'millisecond') {
             return this.valueOf() === localInput.valueOf();
         } else {
@@ -32904,11 +32938,11 @@ __webpack_require__(62)('observable');
     }
 
     function isSameOrAfter (input, units) {
-        return this.isSame(input, units) || this.isAfter(input,units);
+        return this.isSame(input, units) || this.isAfter(input, units);
     }
 
     function isSameOrBefore (input, units) {
-        return this.isSame(input, units) || this.isBefore(input,units);
+        return this.isSame(input, units) || this.isBefore(input, units);
     }
 
     function diff (input, units, asFloat) {
@@ -33085,62 +33119,130 @@ __webpack_require__(62)('observable');
         return this._locale;
     }
 
+    var MS_PER_SECOND = 1000;
+    var MS_PER_MINUTE = 60 * MS_PER_SECOND;
+    var MS_PER_HOUR = 60 * MS_PER_MINUTE;
+    var MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
+
+    // actual modulo - handles negative numbers (for dates before 1970):
+    function mod$1(dividend, divisor) {
+        return (dividend % divisor + divisor) % divisor;
+    }
+
+    function localStartOfDate(y, m, d) {
+        // the date constructor remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            return new Date(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+            return new Date(y, m, d).valueOf();
+        }
+    }
+
+    function utcStartOfDate(y, m, d) {
+        // Date.UTC remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0) {
+            // preserve leap years using a full 400 year cycle, then reset
+            return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+            return Date.UTC(y, m, d);
+        }
+    }
+
     function startOf (units) {
+        var time;
         units = normalizeUnits(units);
-        // the following switch intentionally omits break keywords
-        // to utilize falling through the cases.
+        if (units === undefined || units === 'millisecond' || !this.isValid()) {
+            return this;
+        }
+
+        var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
         switch (units) {
             case 'year':
-                this.month(0);
-                /* falls through */
+                time = startOfDate(this.year(), 0, 1);
+                break;
             case 'quarter':
+                time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
+                break;
             case 'month':
-                this.date(1);
-                /* falls through */
+                time = startOfDate(this.year(), this.month(), 1);
+                break;
             case 'week':
+                time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
+                break;
             case 'isoWeek':
+                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
+                break;
             case 'day':
             case 'date':
-                this.hours(0);
-                /* falls through */
+                time = startOfDate(this.year(), this.month(), this.date());
+                break;
             case 'hour':
-                this.minutes(0);
-                /* falls through */
+                time = this._d.valueOf();
+                time -= mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
+                break;
             case 'minute':
-                this.seconds(0);
-                /* falls through */
+                time = this._d.valueOf();
+                time -= mod$1(time, MS_PER_MINUTE);
+                break;
             case 'second':
-                this.milliseconds(0);
+                time = this._d.valueOf();
+                time -= mod$1(time, MS_PER_SECOND);
+                break;
         }
 
-        // weeks are a special case
-        if (units === 'week') {
-            this.weekday(0);
-        }
-        if (units === 'isoWeek') {
-            this.isoWeekday(1);
-        }
-
-        // quarters are also special
-        if (units === 'quarter') {
-            this.month(Math.floor(this.month() / 3) * 3);
-        }
-
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
         return this;
     }
 
     function endOf (units) {
+        var time;
         units = normalizeUnits(units);
-        if (units === undefined || units === 'millisecond') {
+        if (units === undefined || units === 'millisecond' || !this.isValid()) {
             return this;
         }
 
-        // 'date' is an alias for 'day', so it should be considered as such.
-        if (units === 'date') {
-            units = 'day';
+        var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
+        switch (units) {
+            case 'year':
+                time = startOfDate(this.year() + 1, 0, 1) - 1;
+                break;
+            case 'quarter':
+                time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
+                break;
+            case 'month':
+                time = startOfDate(this.year(), this.month() + 1, 1) - 1;
+                break;
+            case 'week':
+                time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
+                break;
+            case 'isoWeek':
+                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
+                break;
+            case 'day':
+            case 'date':
+                time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
+                break;
+            case 'hour':
+                time = this._d.valueOf();
+                time += MS_PER_HOUR - mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
+                break;
+            case 'minute':
+                time = this._d.valueOf();
+                time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
+                break;
+            case 'second':
+                time = this._d.valueOf();
+                time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
+                break;
         }
 
-        return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
+        return this;
     }
 
     function valueOf () {
@@ -33846,10 +33948,14 @@ __webpack_require__(62)('observable');
 
         units = normalizeUnits(units);
 
-        if (units === 'month' || units === 'year') {
-            days   = this._days   + milliseconds / 864e5;
+        if (units === 'month' || units === 'quarter' || units === 'year') {
+            days = this._days + milliseconds / 864e5;
             months = this._months + daysToMonths(days);
-            return units === 'month' ? months : months / 12;
+            switch (units) {
+                case 'month':   return months;
+                case 'quarter': return months / 3;
+                case 'year':    return months / 12;
+            }
         } else {
             // handle milliseconds separately because of floating point math errors (issue #1867)
             days = this._days + Math.round(monthsToDays(this._months));
@@ -33892,6 +33998,7 @@ __webpack_require__(62)('observable');
     var asDays         = makeAs('d');
     var asWeeks        = makeAs('w');
     var asMonths       = makeAs('M');
+    var asQuarters     = makeAs('Q');
     var asYears        = makeAs('y');
 
     function clone$1 () {
@@ -34083,6 +34190,7 @@ __webpack_require__(62)('observable');
     proto$2.asDays         = asDays;
     proto$2.asWeeks        = asWeeks;
     proto$2.asMonths       = asMonths;
+    proto$2.asQuarters     = asQuarters;
     proto$2.asYears        = asYears;
     proto$2.valueOf        = valueOf$1;
     proto$2._bubble        = bubble;
@@ -34127,7 +34235,7 @@ __webpack_require__(62)('observable');
     // Side effect imports
 
 
-    hooks.version = '2.22.2';
+    hooks.version = '2.24.0';
 
     setHookCallback(createLocal);
 
@@ -34168,7 +34276,7 @@ __webpack_require__(62)('observable');
         TIME: 'HH:mm',                                  // <input type="time" />
         TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
         TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
-        WEEK: 'YYYY-[W]WW',                             // <input type="week" />
+        WEEK: 'GGGG-[W]WW',                             // <input type="week" />
         MONTH: 'YYYY-MM'                                // <input type="month" />
     };
 
@@ -34486,7 +34594,7 @@ exports.graph3d = {
   Camera: __webpack_require__(95),
   Filter: __webpack_require__(96),
   Point2d: __webpack_require__(91),
-  Point3d: __webpack_require__(34),
+  Point3d: __webpack_require__(35),
   Slider: __webpack_require__(92),
   StepNumber: __webpack_require__(93)
 };
@@ -34494,7 +34602,7 @@ exports.graph3d = {
 // bundled external libraries
 exports.moment = __webpack_require__(9);
 exports.Hammer = __webpack_require__(10);
-exports.keycharm = __webpack_require__(35);
+exports.keycharm = __webpack_require__(36);
 
 /***/ }),
 /* 160 */
@@ -34522,7 +34630,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var Emitter = __webpack_require__(45);
 var util = __webpack_require__(2);
-var Point3d = __webpack_require__(34);
+var Point3d = __webpack_require__(35);
 var Point2d = __webpack_require__(91);
 var Slider = __webpack_require__(92);
 var StepNumber = __webpack_require__(93);
@@ -36859,10 +36967,11 @@ $export($export.S + $export.F, 'Object', { assign: __webpack_require__(164) });
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
+var DESCRIPTORS = __webpack_require__(19);
 var getKeys = __webpack_require__(33);
 var gOPS = __webpack_require__(63);
 var pIE = __webpack_require__(43);
-var toObject = __webpack_require__(42);
+var toObject = __webpack_require__(34);
 var IObject = __webpack_require__(78);
 var $assign = Object.assign;
 
@@ -36888,7 +36997,10 @@ module.exports = !$assign || __webpack_require__(29)(function () {
     var length = keys.length;
     var j = 0;
     var key;
-    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+    while (length > j) {
+      key = keys[j++];
+      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
+    }
   } return T;
 } : $assign;
 
@@ -36951,7 +37063,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(17);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(21), 'Object', { defineProperty: __webpack_require__(20).f });
+$export($export.S + $export.F * !__webpack_require__(19), 'Object', { defineProperty: __webpack_require__(21).f });
 
 
 /***/ }),
@@ -37096,7 +37208,7 @@ var DataView = __webpack_require__(12);
 var Range = __webpack_require__(174);
 var Filter = __webpack_require__(96);
 var Settings = __webpack_require__(94);
-var Point3d = __webpack_require__(34);
+var Point3d = __webpack_require__(35);
 
 /**
  * Creates a container for all data of one specific 3D-graph.
@@ -40575,14 +40687,14 @@ exports.Timeline = __webpack_require__(178);
 exports.Graph2d = __webpack_require__(180);
 exports.timeline = {
   Core: __webpack_require__(65),
-  DateUtil: __webpack_require__(36),
+  DateUtil: __webpack_require__(37),
   Range: __webpack_require__(64),
   stack: __webpack_require__(100),
   TimeStep: __webpack_require__(66),
 
   components: {
     items: {
-      Item: __webpack_require__(38),
+      Item: __webpack_require__(39),
       BackgroundItem: __webpack_require__(103),
       BoxItem: __webpack_require__(101),
       PointItem: __webpack_require__(102),
@@ -40607,7 +40719,7 @@ exports.timeline = {
 // bundled external libraries
 exports.moment = __webpack_require__(9);
 exports.Hammer = __webpack_require__(10);
-exports.keycharm = __webpack_require__(35);
+exports.keycharm = __webpack_require__(36);
 
 /***/ }),
 /* 178 */
@@ -41378,7 +41490,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -41393,7 +41505,7 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Hammer = __webpack_require__(10);
-var hammerUtil = __webpack_require__(37);
+var hammerUtil = __webpack_require__(38);
 var util = __webpack_require__(2);
 
 /**
@@ -42407,7 +42519,7 @@ exports.network.convertGephi = function (input, options) {
 // bundled external libraries
 exports.moment = __webpack_require__(9);
 exports.Hammer = __webpack_require__(10);
-exports.keycharm = __webpack_require__(35);
+exports.keycharm = __webpack_require__(36);
 
 /***/ }),
 /* 182 */
@@ -45500,7 +45612,7 @@ module.exports = __webpack_require__(7).Object.getPrototypeOf;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = __webpack_require__(42);
+var toObject = __webpack_require__(34);
 var $getPrototypeOf = __webpack_require__(85);
 
 __webpack_require__(87)('getPrototypeOf', function () {
@@ -52630,7 +52742,7 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Hammer = __webpack_require__(10);
-var hammerUtil = __webpack_require__(37);
+var hammerUtil = __webpack_require__(38);
 
 var util = __webpack_require__(2);
 
@@ -54389,8 +54501,8 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Hammer = __webpack_require__(10);
-var hammerUtil = __webpack_require__(37);
-var keycharm = __webpack_require__(35);
+var hammerUtil = __webpack_require__(38);
+var keycharm = __webpack_require__(36);
 
 /**
  * Navigation Handler
@@ -55536,11 +55648,12 @@ var SelectionHandler = function () {
       }
 
       if (object !== undefined) {
-        var hoveredEdgesCound = (0, _keys2['default'])(this.hoverObj.edges).length;
+        var hoveredEdgesCount = (0, _keys2['default'])(this.hoverObj.edges).length;
         var hoveredNodesCount = (0, _keys2['default'])(this.hoverObj.nodes).length;
-        var newOnlyHoveredEdge = object instanceof Edge && hoveredEdgesCound === 0 && hoveredNodesCount === 0;
+        var newOnlyHoveredEdge = object instanceof Edge && hoveredEdgesCount === 0 && hoveredNodesCount === 0;
+        var newOnlyHoveredNode = object instanceof Node && hoveredEdgesCount === 0 && hoveredNodesCount === 0;
 
-        if (hoverChanged || newOnlyHoveredEdge) {
+        if (hoverChanged || newOnlyHoveredEdge || newOnlyHoveredNode) {
           hoverChanged = this.emitHoverEvent(event, pointer, object);
         }
 
@@ -58082,7 +58195,7 @@ var _keys = __webpack_require__(8);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(20);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -58102,7 +58215,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var util = __webpack_require__(2);
 var Hammer = __webpack_require__(10);
-var hammerUtil = __webpack_require__(37);
+var hammerUtil = __webpack_require__(38);
 
 /**
  * Clears the toolbar div element of children
